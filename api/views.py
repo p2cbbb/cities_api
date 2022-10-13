@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework import  status
+from rest_framework import viewsets
+from rest_framework.response import Response
 
-# Create your views here.
+from .models import City
+from .serializers import CitySerializer
+
+
+class CityView(viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    http_method_names = ['get']
+
+
+
