@@ -6,7 +6,7 @@ class City(models.Model):
     city_name = models.CharField(max_length=50)
     
     def __str__(self):
-        return self.name
+        return self.city_name
 
 
 class Street(models.Model):
@@ -14,7 +14,7 @@ class Street(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.street_name
 
 
 class Shop(models.Model):
@@ -26,6 +26,6 @@ class Shop(models.Model):
     closing_time = models.CharField(max_length=10)
     
     def __str__(self):
-        return self.name
+        return self.shop_name
 
 

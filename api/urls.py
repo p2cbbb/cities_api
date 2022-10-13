@@ -1,11 +1,8 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from .views import CityView
-
-router = DefaultRouter()
-router.register(r'city', CityView, basename="city")
+from .views import CityView, StreetsOfCityView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('city/', CityView.as_view()),
+    path('city/<int:city_id>/street/', StreetsOfCityView.as_view())
 ]
