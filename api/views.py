@@ -24,11 +24,10 @@ class StreetsOfCityView(views.APIView):
 class ShopCreationView(views.APIView):
     def post(self, request):
         serializer = ShopSerializer(data=request.data)
-        # print(request.data)
-        # print(serializer)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            shop = serializer.save()
+            return Response({"shop_id": shop.id, "status": "ok"},
+                            status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
