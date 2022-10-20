@@ -22,8 +22,8 @@ class Shop(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='shop')
     street = models.ForeignKey(Street, on_delete=models.CASCADE, related_name='shop')
     house = models.IntegerField()
-    opening_time = models.CharField(max_length=10)
-    closing_time = models.CharField(max_length=10)
+    opening_time = models.TimeField()
+    closing_time = models.TimeField()
     
     def __str__(self):
         return self.shop_name

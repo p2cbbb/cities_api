@@ -1,6 +1,8 @@
+import datetime
+from django.shortcuts import get_object_or_404
+
 from rest_framework import  status
 from rest_framework import views
-from rest_framework import viewsets
 from rest_framework.response import Response
 
 from .models import City, Street, Shop
@@ -29,12 +31,12 @@ class StreetsOfCityView(views.APIView):
         return Response({"streets": serializer.data}, status=status.HTTP_200_OK)
     
     
-class ShopCreationView(views.APIView):
-    """
-    Endpoint: POST/street
-    Создание нового магазина
-    """
+class ShopView(views.APIView):
     def post(self, request):
+        """
+        Endpoint: POST/street
+        Создание нового магазина
+        """
         serializer = ShopSerializer(data=request.data)
         if serializer.is_valid():
             # если города с названием city нет в базе, то мы создаем новый город
@@ -50,11 +52,32 @@ class ShopCreationView(views.APIView):
             return Response({"shop_id": shop.id, "status": "ok"},
                             status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ShopListView(views.APIView):
+    
     def get(self, request):
-        pass
+        """
+        Endpoint: GET/shop/?street=<street_name>&city=<city_name>&open=0/1
+        Получение списка магазинов
+        """
+        current_time = datetime.datetime.now().strftime("%H:%M:%S")
+        street_name = self.request.query_params.get('street')
+        city_name = self.request.query_params.get('city')
+        opened = self.request.query_params.get('open')
+        shops = Shop.objects.all()
+        if street_name:
+            street = get_object_or_404(Street, street_name=street_name)
+            shops = shops.filter(street=street)
+        if city_name:
+            city = get_object_or_404(City, city_name=city_name)
+            shops = shops.filter(city=city)
+        if opened == "1":
+            shops = shops.filter(opening_time__lte=current_time, closing_time__gte=current_time)
+        elif opened == "0":
+            shops = shops.filter(opening_time__gte=current_time, closing_time__lte=current_time)
+        
+        serializer = ShopSerializer(shops, many=True)
+        return Response({"shops": serializer.data}, status=status.HTTP_200_OK)
+
+
 
 
 
