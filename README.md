@@ -32,6 +32,11 @@ pip install -r requirements.txt
 ```bash
 SECRET_KEY=<secret_key>
 DEBUG=<debug>
+DATABASE_NAME=<db_name>
+DATABASE_USER=<db_user>
+DATABASE_PASSWORD=<db_password>
+DATABASE_HOST=<db_host>
+DATABASE_PORT=<db_port>
 ```
 
 ### Применение миграций, создания суперпользователя и запуск проекта
