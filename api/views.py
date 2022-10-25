@@ -26,6 +26,7 @@ class StreetsOfCityView(views.APIView):
     Получение всех улиц города
     """
     def get(self, request, city_id):
+        city = get_object_or_404(City, pk=city_id)
         streets = Street.objects.filter(city=city_id).all()
         serializer = StreetSerializer(streets, many=True)
         return Response({"streets": serializer.data}, status=status.HTTP_200_OK)

@@ -30,6 +30,12 @@ class CityTestClass(BaseTest):
         self.assertEqual(first_street, "Пушкинская")
         self.assertEqual(number_of_streets, 1)
 
+    def test_get_streets_of_unexistent_city(self):
+        city_id = 10
+        url = f"http://127.0.0.1:8000/api/city/{city_id}/street/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
 
 
 
