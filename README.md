@@ -69,7 +69,6 @@ docker-compose up --build
         {
             "city_name": "Москва"
         },
-        ...
     ]
 }
 ```
@@ -86,7 +85,6 @@ docker-compose up --build
         {
             "street_name": "Пушкинская"
         },
-        ...
     ]
 }
 ```
@@ -132,7 +130,6 @@ docker-compose up --build
             "opening_time": "10:00:00",
             "closing_time": "22:00:00"
         },
-        ...
     ]
 }
 ```
