@@ -58,6 +58,39 @@ docker-compose up --build
 ```
 
 ### Эндпоинты
+- `GET /api/city/` — получение всех городов из базы
+##### Ответ:
+```json
+{
+    "cities": [
+        {
+            "city_name": "Санкт-Петербург"
+        },
+        {
+            "city_name": "Москва"
+        },
+        ...
+    ]
+}
+```
+
+
+- `GET /city/<int:city_id>/street/` — получение всех улиц города
+##### Ответ:
+```json
+{
+    "streets": [
+        {
+            "street_name": "Марата"
+        },
+        {
+            "street_name": "Пушкинская"
+        },
+        ...
+    ]
+}
+```
+
 - `POST /shop/` — создание магазина  
 ##### Запрос:
 ```json
@@ -81,3 +114,27 @@ docker-compose up --build
     "status": "ok"
 }
 ```
+
+- `GET /shop/?street=<street>&city=<city>&open=0/1` — получение списка магазинов
+##### Ответ:
+```json
+{
+    "shops": [
+        {
+            "shop_name": "SoftStore",
+            "city": {
+                "city_name": "Санкт-Петербург"
+            },
+            "street": {
+                "street_name": "Марата"
+            },
+            "house": 12,
+            "opening_time": "10:00:00",
+            "closing_time": "22:00:00"
+        },
+        ...
+    ]
+}
+```
+
+
