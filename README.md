@@ -45,3 +45,8 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
+
+### Команда для запуска docker
+```bash
+docker-compose up --build
+```
